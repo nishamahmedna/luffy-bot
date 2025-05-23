@@ -1,9 +1,3 @@
-
----
-
-## ✅ `LuffyBot/README.md` (Corrected)
-
-```markdown
 # LuffyBot – AI-Powered Chit-Chat & Perception Bot
 
 LuffyBot is an intelligent AI companion that combines real-time vision with voice-based interaction. It answers open-ended chit-chat using LLMs and simultaneously monitors the environment through object detection and OCR. In future upgrades, it can be extended to provide safety alerts and autonomous threat awareness.
