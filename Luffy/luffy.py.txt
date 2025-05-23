@@ -1,0 +1,52 @@
+import speech_recognition as sr
+import pyttsx3
+import openai
+
+# Initialize Text-to-Speech
+engine = pyttsx3.init()
+engine.setProperty('rate', 150)
+
+openai.api_key = "your-api-key"
+
+def speak(text):
+    """Convert text to speech."""
+    engine.say(text)
+    engine.runAndWait()
+
+def listen():
+    """Capture speech and convert it to text."""
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("🎤 Say something...")
+        recognizer.adjust_for_ambient_noise(source)
+        audio = recognizer.listen(source)
+    try:
+        text = recognizer.recognize_google(audio)
+        print(f"🗣️ You said: {text}")
+        return text
+    except sr.UnknownValueError:
+        print("❌ Could not understand audio.")
+        return None
+    except sr.RequestError:
+        print("❌ Error with Google Speech Recognition.")
+        return None
+
+def ask_openai(question):
+    """Get a response from ChatGPT."""
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": question}]
+    )
+    return response["choices"][0]["message"]["content"]
+
+def main():
+    """Main loop: Listen, process, and respond."""
+    while True:
+        query = listen()
+        if query:
+            response = ask_openai(query)
+            print(f"🤖 Luffy: {response}")
+            speak(response)
+
+if __name__ == "__main__":
+    main()

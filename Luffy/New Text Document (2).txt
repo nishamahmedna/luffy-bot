@@ -1,0 +1,30 @@
+import cv2
+import pytesseract
+
+# Initialize camera
+cap = cv2.VideoCapture(0)
+
+# Set path for Tesseract OCR (Modify if installed elsewhere)
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Convert to grayscale
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    # Apply OCR for text recognition
+    text = pytesseract.image_to_string(gray)
+    print(f"Detected Text: {text}")
+
+    # Display video feed
+    cv2.imshow("Live Video", frame)
+
+    # Press 'q' to exit
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()

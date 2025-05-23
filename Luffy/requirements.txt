@@ -1,0 +1,9 @@
+opencv-python
+pytesseract
+torch
+numpy
+SpeechRecognition
+pyttsx3
+ultralytics
+google-generativeai
+picamera2
